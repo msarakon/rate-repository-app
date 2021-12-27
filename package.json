@@ -24,7 +24,8 @@
     "@babel/eslint-parser": "^7.16.5",
     "@expo/webpack-config": "^0.16.15",
     "eslint": "^8.5.0",
-    "eslint-plugin-react": "^7.28.0"
+    "eslint-plugin-react": "^7.28.0",
+    "prettier": "^2.5.1"
   },
   "private": true
 }
