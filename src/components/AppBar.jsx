@@ -2,6 +2,7 @@ import React from "react";
 import Constants from "expo-constants";
 import { View, StyleSheet, Text, ScrollView } from "react-native";
 import { Link } from "react-router-native";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
   text: {
     color: "#ffffff",
     padding: 20,
+    fontWeight: theme.fontWeights.bold,
   },
 });
 
@@ -23,7 +25,7 @@ const AppBar = () => {
           <Text style={styles.text}>Repositories</Text>
         </Link>
         <Link to="/signin">
-          <Text style={styles.text}>Sign In</Text>
+          <Text style={styles.text}>Sign in</Text>
         </Link>
       </ScrollView>
     </View>
