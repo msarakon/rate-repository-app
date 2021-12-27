@@ -1,13 +1,15 @@
 import React from 'react';
+import Constants from 'expo-constants';
 import { View, StyleSheet, Text, Alert, Pressable } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: "#24292e",
   },
   text: {
-    color: "#ffffff"
+    color: "#ffffff",
+    padding: 20
   }
 });
 
