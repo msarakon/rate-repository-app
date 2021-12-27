@@ -45,44 +45,32 @@ const validationSchema = yup.object().shape({
   password: yup.string().required("Password is required"),
 });
 
-const SignInForm = ({ handleSubmit }) => {
-  const [usernameField, usernameMeta, usernameHelpers] = useField("username");
-  const [passwordField, passwordMeta, passwordHelpers] = useField("password");
+const FormikTextInput = ({ name, ...props }) => {
+  const [field, meta, helpers] = useField(name);
 
-  const [isValidating, setValidating] = useState(false);
-
-  const onSubmit = () => {
-    setValidating(true);
-    if (!usernameMeta.error && !passwordMeta.error) {
-      handleSubmit();
-    }
-  };
+  const showError = meta.touched && meta.error;
 
   return (
+    <>
+      <TextInput
+        onChangeText={(value) => helpers.setValue(value)}
+        onBlur={() => helpers.setTouched(true)}
+        value={field.value}
+        error={showError}
+        {...props}
+        style={[styles.input, meta.error ? styles.inputInvalid : undefined]}
+      />
+      {showError && <Text style={styles.errorText}>{meta.error}</Text>}
+    </>
+  );
+};
+
+const SignInForm = ({ handleSubmit }) => {
+  return (
     <View style={styles.container}>
-      <TextInput
-        placeholder="Username"
-        value={usernameField.value}
-        onChangeText={(text) => usernameHelpers.setValue(text)}
-        style={[
-          styles.input,
-          usernameMeta.error ? styles.inputInvalid : undefined,
-        ]}
-        error={usernameMeta.error}
-      />
-      <Text style={styles.errorText}>{isValidating && usernameMeta.error}</Text>
-      <TextInput
-        placeholder="Password"
-        value={passwordField.value}
-        onChangeText={(text) => passwordHelpers.setValue(text)}
-        style={[
-          styles.input,
-          passwordMeta.error ? styles.inputInvalid : undefined,
-        ]}
-        error={passwordMeta.error}
-      />
-      <Text style={styles.errorText}>{isValidating && passwordMeta.error}</Text>
-      <Pressable onPress={onSubmit} style={styles.button}>
+      <FormikTextInput name="username" placeholder="Username" />
+      <FormikTextInput name="password" placeholder="Password" />
+      <Pressable onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>
     </View>
