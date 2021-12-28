@@ -1,7 +1,7 @@
-import React from "react";
-import { View, StyleSheet, Image } from "react-native";
-import Text from "./Text";
-import theme from "../theme";
+import React from "react"
+import { View, StyleSheet, Image } from "react-native"
+import Text from "./Text"
+import theme from "../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -42,16 +42,15 @@ const styles = StyleSheet.create({
   stats: {
     alignItems: "center",
   },
-});
+})
 
-const formatNumber = (num) =>
-  num >= 1000 ? (num / 1000).toFixed(1) + "k" : num;
+const formatNumber = num => (num >= 1000 ? (num / 1000).toFixed(1) + "k" : num)
 
 const Tag = ({ label }) => (
   <View style={styles.tag}>
     <Text style={styles.tagText}>{label}</Text>
   </View>
-);
+)
 
 const Stats = ({ count, label }) => (
   <View style={styles.stats}>
@@ -60,7 +59,7 @@ const Stats = ({ count, label }) => (
     </Text>
     <Text color="textSecondary">{label}</Text>
   </View>
-);
+)
 
 const RepositoryItem = ({ repository }) => {
   return (
@@ -85,7 +84,7 @@ const RepositoryItem = ({ repository }) => {
         <Stats count={repository.ratingAverage} label="Rating" />
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default RepositoryItem;
+export default RepositoryItem
