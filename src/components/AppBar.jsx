@@ -1,6 +1,7 @@
 import React from "react"
 import Constants from "expo-constants"
 import { View, StyleSheet, Text, ScrollView, Pressable } from "react-native"
+import { useHistory } from "react-router-native"
 import { Link } from "react-router-native"
 import theme from "../theme"
 import useAuthorizedUser from "../hooks/useAuthorizedUser"
@@ -22,17 +23,25 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   const { signOut } = useSignOut()
   const { authorizedUser } = useAuthorizedUser()
+  const history = useHistory()
+
+  const handleSignOut = async () => {
+    await signOut()
+    history.push("/signin")
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
-        <Link to="/">
-          <Text style={styles.text}>Repositories</Text>
-        </Link>
         {authorizedUser ? (
-          <Pressable onPress={signOut}>
-            <Text style={styles.text}>Sign out</Text>
-          </Pressable>
+          <>
+            <Link to="/">
+              <Text style={styles.text}>Repositories</Text>
+            </Link>
+            <Pressable onPress={handleSignOut}>
+              <Text style={styles.text}>Sign out</Text>
+            </Pressable>
+          </>
         ) : (
           <Link to="/signin">
             <Text style={styles.text}>Sign in</Text>
