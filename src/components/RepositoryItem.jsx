@@ -1,5 +1,7 @@
 import React from "react"
-import { View, StyleSheet, Image } from "react-native"
+import { View, StyleSheet, Image, FlatList, Pressable } from "react-native"
+import * as Linking from "expo-linking"
+import { format, parseISO } from "date-fns"
 import Text from "./Text"
 import theme from "../theme"
 
@@ -42,6 +44,42 @@ const styles = StyleSheet.create({
   stats: {
     alignItems: "center",
   },
+  button: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: 4,
+    margin: 12,
+  },
+  buttonText: {
+    color: "#ffffff",
+    textAlign: "center",
+    padding: 12,
+  },
+  review: {
+    backgroundColor: "#ffffff",
+    marginTop: 10,
+    padding: 10,
+    flexDirection: "row",
+  },
+  rating: {
+    width: 50,
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 25,
+    borderColor: theme.colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
+  ratingText: {
+    fontSize: 20,
+  },
+  reviewInfo: {
+    flex: 1,
+  },
+  reviewDate: {
+    marginTop: 4,
+    marginBottom: 6,
+  },
 })
 
 const formatNumber = num => (num >= 1000 ? (num / 1000).toFixed(1) + "k" : num)
@@ -63,7 +101,30 @@ const Stats = ({ count, label, ...props }) => (
   </View>
 )
 
-const RepositoryItem = ({ repository }) => {
+const formatDate = str => format(parseISO(str), "dd.MM.yyyy")
+
+const ReviewItem = ({ review }) => (
+  <View style={styles.review}>
+    <View style={styles.rating}>
+      <Text color="primary" fontWeight="bold" style={styles.ratingText}>
+        {review.rating}
+      </Text>
+    </View>
+    <View style={styles.reviewInfo}>
+      <Text fontWeight="bold">{review.user.username}</Text>
+      <Text color="textSecondary" style={styles.reviewDate}>
+        {formatDate(review.createdAt)}
+      </Text>
+      <Text>{review.text}</Text>
+    </View>
+  </View>
+)
+
+const RepositoryInfo = ({ repository }) => {
+  const openInGithub = () => {
+    Linking.openURL(repository.url)
+  }
+
   return (
     <View style={styles.container} testID="repository-item">
       <View style={styles.topContent}>
@@ -110,7 +171,25 @@ const RepositoryItem = ({ repository }) => {
           testID={`${repository.id}-rating`}
         />
       </View>
+      {repository.url && (
+        <Pressable style={styles.button} onPress={openInGithub}>
+          <Text style={styles.buttonText}>Open in Github</Text>
+        </Pressable>
+      )}
     </View>
+  )
+}
+
+const RepositoryItem = ({ repository }) => {
+  const reviews = repository.reviews?.edges.map(edge => edge.node)
+
+  return (
+    <FlatList
+      data={reviews}
+      renderItem={({ item }) => <ReviewItem review={item} />}
+      keyExtractor={({ id }) => id}
+      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+    />
   )
 }
 
