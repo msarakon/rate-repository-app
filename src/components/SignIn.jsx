@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
 import { TextInput, View, Pressable, StyleSheet } from "react-native"
+import { useHistory } from "react-router-native"
 import { Formik, useField } from "formik"
 import * as yup from "yup"
 import Text from "./Text"
 import theme from "../theme"
+import useSignIn from "../hooks/useSignIn"
 
 const styles = StyleSheet.create({
   container: {
@@ -59,6 +61,8 @@ const FormikTextInput = ({ name, ...props }) => {
         error={showError}
         {...props}
         style={[styles.input, meta.error ? styles.inputInvalid : undefined]}
+        autoCorrect={false}
+        autoCapitalize="none"
       />
       {showError && <Text style={styles.errorText}>{meta.error}</Text>}
     </>
@@ -78,8 +82,18 @@ const SignInForm = ({ handleSubmit }) => {
 }
 
 const SignIn = () => {
-  const onSubmit = values => {
-    console.log(values)
+  const [signIn] = useSignIn()
+  const history = useHistory()
+
+  const onSubmit = async values => {
+    const { username, password } = values
+
+    try {
+      await signIn({ username, password })
+      history.push("/")
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
