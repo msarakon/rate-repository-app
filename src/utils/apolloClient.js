@@ -1,11 +1,8 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
-import { API_HOST } from "./apiHost"
 
-const httpLink = createHttpLink({
-  uri: `http://${API_HOST}:5000/graphql`,
-})
+const createApolloClient = uri => {
+  const httpLink = createHttpLink({ uri })
 
-const createApolloClient = () => {
   return new ApolloClient({
     link: httpLink,
     cache: new InMemoryCache(),
