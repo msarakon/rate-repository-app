@@ -1,7 +1,7 @@
-import React from "react";
-import { Text as NativeText, StyleSheet, Platform } from "react-native";
+import React from "react"
+import { Text as NativeText, StyleSheet, Platform } from "react-native"
 
-import theme from "../theme";
+import theme from "../theme"
 
 const styles = StyleSheet.create({
   text: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
-});
+})
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
   const textStyle = [
@@ -36,9 +36,9 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
     fontSize === "subheading" && styles.fontSizeSubheading,
     fontWeight === "bold" && styles.fontWeightBold,
     style,
-  ];
+  ]
 
-  return <NativeText style={textStyle} {...props} />;
-};
+  return <NativeText style={textStyle} {...props} />
+}
 
-export default Text;
+export default Text

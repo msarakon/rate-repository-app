@@ -1,8 +1,8 @@
-import React from "react";
-import Constants from "expo-constants";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
-import { Link } from "react-router-native";
-import theme from "../theme";
+import React from "react"
+import Constants from "expo-constants"
+import { View, StyleSheet, Text, ScrollView } from "react-native"
+import { Link } from "react-router-native"
+import theme from "../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     padding: 20,
     fontWeight: theme.fontWeights.bold,
   },
-});
+})
 
 const AppBar = () => {
   return (
@@ -29,7 +29,7 @@ const AppBar = () => {
         </Link>
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
-export default AppBar;
+export default AppBar

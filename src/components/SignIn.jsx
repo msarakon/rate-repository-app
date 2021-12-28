@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { TextInput, View, Pressable, StyleSheet } from "react-native";
-import { Formik, useField } from "formik";
-import * as yup from "yup";
-import Text from "./Text";
-import theme from "../theme";
+import React, { useState } from "react"
+import { TextInput, View, Pressable, StyleSheet } from "react-native"
+import { Formik, useField } from "formik"
+import * as yup from "yup"
+import Text from "./Text"
+import theme from "../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -33,27 +33,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 12,
   },
-});
+})
 
 const initialValues = {
   username: "",
   password: "",
-};
+}
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
-});
+})
 
 const FormikTextInput = ({ name, ...props }) => {
-  const [field, meta, helpers] = useField(name);
+  const [field, meta, helpers] = useField(name)
 
-  const showError = meta.touched && meta.error;
+  const showError = meta.touched && meta.error
 
   return (
     <>
       <TextInput
-        onChangeText={(value) => helpers.setValue(value)}
+        onChangeText={value => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
         value={field.value}
         error={showError}
@@ -62,8 +62,8 @@ const FormikTextInput = ({ name, ...props }) => {
       />
       {showError && <Text style={styles.errorText}>{meta.error}</Text>}
     </>
-  );
-};
+  )
+}
 
 const SignInForm = ({ handleSubmit }) => {
   return (
@@ -74,13 +74,13 @@ const SignInForm = ({ handleSubmit }) => {
         <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>
     </View>
-  );
-};
+  )
+}
 
 const SignIn = () => {
-  const onSubmit = (values) => {
-    console.log(values);
-  };
+  const onSubmit = values => {
+    console.log(values)
+  }
 
   return (
     <Formik
@@ -90,7 +90,7 @@ const SignIn = () => {
     >
       {({ handleSubmit }) => <SignInForm handleSubmit={handleSubmit} />}
     </Formik>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn
