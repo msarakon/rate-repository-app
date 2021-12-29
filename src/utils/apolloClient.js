@@ -14,6 +14,11 @@ const cache = new InMemoryCache({
         reviews: relayStylePagination(),
       },
     },
+    AuthoziedUser: {
+      fields: {
+        reviews: relayStylePagination(),
+      },
+    },
   },
 })
 

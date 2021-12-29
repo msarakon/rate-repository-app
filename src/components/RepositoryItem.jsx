@@ -1,13 +1,14 @@
 import React from "react"
 import { View, StyleSheet, Image, FlatList, Pressable } from "react-native"
 import * as Linking from "expo-linking"
-import { format, parseISO } from "date-fns"
 import Text from "./Text"
+import ReviewItem from "./ReviewItem"
 import theme from "../theme"
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff",
+    marginBottom: 10,
   },
   topContent: {
     flexDirection: "row",
@@ -54,31 +55,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 12,
   },
-  review: {
-    backgroundColor: "#ffffff",
-    marginTop: 10,
-    padding: 10,
-    flexDirection: "row",
-  },
-  rating: {
-    width: 50,
-    height: 50,
-    borderWidth: 2,
-    borderRadius: 25,
-    borderColor: theme.colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 10,
-  },
-  ratingText: {
-    fontSize: 20,
-  },
-  reviewInfo: {
-    flex: 1,
-  },
-  reviewDate: {
-    marginTop: 4,
-    marginBottom: 6,
+  separator: {
+    height: 10,
   },
 })
 
@@ -101,24 +79,7 @@ const Stats = ({ count, label, ...props }) => (
   </View>
 )
 
-const formatDate = str => format(parseISO(str), "dd.MM.yyyy")
-
-const ReviewItem = ({ review }) => (
-  <View style={styles.review}>
-    <View style={styles.rating}>
-      <Text color="primary" fontWeight="bold" style={styles.ratingText}>
-        {review.rating}
-      </Text>
-    </View>
-    <View style={styles.reviewInfo}>
-      <Text fontWeight="bold">{review.user.username}</Text>
-      <Text color="textSecondary" style={styles.reviewDate}>
-        {formatDate(review.createdAt)}
-      </Text>
-      <Text>{review.text}</Text>
-    </View>
-  </View>
-)
+const ItemSeparator = () => <View style={styles.separator} />
 
 const RepositoryInfo = ({ repository }) => {
   const openInGithub = () => {
@@ -187,6 +148,7 @@ const RepositoryItem = ({ repository, onEndReach }) => {
     <FlatList
       data={reviews}
       renderItem={({ item }) => <ReviewItem review={item} />}
+      ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
       onEndReached={onEndReach}
