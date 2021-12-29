@@ -21,11 +21,12 @@ const resolveOrder = sortBy => {
   }
 }
 
-const useRepositories = sortBy => {
+const useRepositories = (sortBy, searchKeyword) => {
   const { data } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
     variables: {
       ...resolveOrder(sortBy),
+      searchKeyword,
     },
   })
 
