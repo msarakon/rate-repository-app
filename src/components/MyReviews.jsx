@@ -4,13 +4,15 @@ import useAuthorizedUser from "../hooks/useAuthorizedUser"
 import ReviewItem from "./ReviewItem"
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#ffffff",
+  separator: {
+    height: 10,
   },
 })
 
+const ItemSeparator = () => <View style={styles.separator} />
+
 const MyReviews = () => {
-  const { authorizedUser } = useAuthorizedUser(true)
+  const { authorizedUser, refetch } = useAuthorizedUser(true)
 
   const reviews = authorizedUser?.reviews.edges.map(edge => edge.node)
 
@@ -18,8 +20,11 @@ const MyReviews = () => {
     <View style={styles.container}>
       <FlatList
         data={reviews}
-        renderItem={({ item }) => <ReviewItem review={item} />}
+        renderItem={({ item }) => (
+          <ReviewItem review={item} showActions refetch={refetch} />
+        )}
         keyExtractor={({ id }) => id}
+        ItemSeparatorComponent={ItemSeparator}
       />
     </View>
   )

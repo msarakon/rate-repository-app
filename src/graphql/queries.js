@@ -60,9 +60,9 @@ export const GET_REPOSITORY = gql`
             rating
             createdAt
             user {
-              id
               username
             }
+            repositoryId
           }
         }
         pageInfo {
@@ -86,9 +86,9 @@ export const GET_AUTHORIZED_USER = gql`
             rating
             createdAt
             user {
-              id
               username
             }
+            repositoryId
           }
         }
       }

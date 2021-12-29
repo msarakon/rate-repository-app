@@ -21,10 +21,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   inputInvalid: {
-    borderColor: "#d73a4a",
+    borderColor: theme.colors.danger,
   },
   errorText: {
-    color: "#d73a4a",
+    color: theme.colors.danger,
     marginBottom: 12,
   },
   button: {

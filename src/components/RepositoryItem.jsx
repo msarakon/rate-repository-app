@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
     padding: 12,
+    fontWeight: theme.fontWeights.bold,
   },
   separator: {
     height: 10,
