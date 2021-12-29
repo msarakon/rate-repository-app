@@ -31,6 +31,7 @@ export const RepositoryListContainer = ({
   setSelectedSortBy,
   searchKeyword,
   setSearchKeyword,
+  onEndReach,
 }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -64,6 +65,8 @@ export const RepositoryListContainer = ({
           <RepositoryItem repository={item} />
         </Pressable>
       )}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   )
 }
@@ -74,13 +77,18 @@ const RepositoryList = () => {
   const [searchKeywordDebounced] = useDebounce(searchKeyword, 300)
   const history = useHistory()
 
-  const { repositories } = useRepositories(
+  const { repositories, fetchMore } = useRepositories({
+    first: 6,
     selectedSortBy,
-    searchKeywordDebounced,
-  )
+    searchKeyword: searchKeywordDebounced,
+  })
 
   const onSelectRepository = id => {
     history.push("/repositories/" + id)
+  }
+
+  const onEndReach = () => {
+    fetchMore()
   }
 
   return (
@@ -91,6 +99,7 @@ const RepositoryList = () => {
       setSelectedSortBy={setSelectedSortBy}
       searchKeyword={searchKeyword}
       setSearchKeyword={setSearchKeyword}
+      onEndReach={onEndReach}
     />
   )
 }

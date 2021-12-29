@@ -21,16 +21,32 @@ const resolveOrder = sortBy => {
   }
 }
 
-const useRepositories = (sortBy, searchKeyword) => {
-  const { data } = useQuery(GET_REPOSITORIES, {
+const useRepositories = ({ first, sortBy, searchKeyword }) => {
+  const variables = {
+    ...resolveOrder(sortBy),
+    first,
+    searchKeyword,
+  }
+
+  const { data, loading, fetchMore } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
-    variables: {
-      ...resolveOrder(sortBy),
-      searchKeyword,
-    },
+    variables,
   })
 
-  return { repositories: data?.repositories }
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage
+
+    if (canFetchMore) {
+      fetchMore({
+        variables: {
+          after: data.repositories.pageInfo.endCursor,
+          ...variables,
+        },
+      })
+    }
+  }
+
+  return { repositories: data?.repositories, fetchMore: handleFetchMore }
 }
 
 export default useRepositories

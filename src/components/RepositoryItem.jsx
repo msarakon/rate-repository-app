@@ -180,7 +180,7 @@ const RepositoryInfo = ({ repository }) => {
   )
 }
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, onEndReach }) => {
   const reviews = repository.reviews?.edges.map(edge => edge.node)
 
   return (
@@ -189,6 +189,8 @@ const RepositoryItem = ({ repository }) => {
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   )
 }

@@ -7,9 +7,7 @@ import Text from "./Text"
 
 const RepositoryPage = () => {
   const { id } = useParams()
-  const { getRepository } = useRepository()
-
-  const repository = getRepository(id)
+  const { repository, fetchMore } = useRepository({ id, first: 3 })
 
   if (!repository) {
     return (
@@ -19,7 +17,11 @@ const RepositoryPage = () => {
     )
   }
 
-  return <RepositoryItem repository={repository} />
+  const onEndReach = () => {
+    fetchMore()
+  }
+
+  return <RepositoryItem repository={repository} onEndReach={onEndReach} />
 }
 
 export default RepositoryPage
