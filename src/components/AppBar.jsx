@@ -35,8 +35,11 @@ const AppBar = () => {
       <ScrollView horizontal>
         {authorizedUser ? (
           <>
-            <Link to="/">
+            <Link to="/repositories">
               <Text style={styles.text}>Repositories</Text>
+            </Link>
+            <Link to="/create-review">
+              <Text style={styles.text}>Create a review</Text>
             </Link>
             <Pressable onPress={handleSignOut}>
               <Text style={styles.text}>Sign out</Text>

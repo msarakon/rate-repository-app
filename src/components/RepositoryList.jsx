@@ -38,7 +38,7 @@ const RepositoryList = () => {
   const history = useHistory()
 
   const onSelectRepository = id => {
-    history.push("/" + id)
+    history.push("/repositories/" + id)
   }
   return (
     <RepositoryListContainer

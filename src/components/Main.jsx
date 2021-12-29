@@ -5,6 +5,7 @@ import RepositoryList from "./RepositoryList"
 import AppBar from "./AppBar"
 import SignIn from "./SignIn"
 import RepositoryPage from "./RepositoryPage"
+import ReviewPage from "./ReviewPage"
 
 const styles = StyleSheet.create({
   container: {
@@ -19,16 +20,19 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar />
       <Switch>
-        <Route path="/" exact>
+        <Route path="/repositories" exact>
           <RepositoryList />
         </Route>
-        <Route path="/:id">
+        <Route path="/repositories/:id">
           <RepositoryPage />
+        </Route>
+        <Route path="/create-review">
+          <ReviewPage />
         </Route>
         <Route path="/signin">
           <SignIn />
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/repositories" />
       </Switch>
     </View>
   )

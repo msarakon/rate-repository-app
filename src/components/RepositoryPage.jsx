@@ -3,6 +3,7 @@ import { View } from "react-native"
 import { useParams } from "react-router-native"
 import RepositoryItem from "./RepositoryItem"
 import useRepository from "../hooks/useRepository"
+import Text from "./Text"
 
 const RepositoryPage = () => {
   const { id } = useParams()
@@ -11,7 +12,11 @@ const RepositoryPage = () => {
   const repository = getRepository(id)
 
   if (!repository) {
-    return <View></View>
+    return (
+      <View>
+        <Text>Repository not found</Text>
+      </View>
+    )
   }
 
   return <RepositoryItem repository={repository} />
