@@ -1,6 +1,6 @@
 import React from "react"
 import { TextInput, View, Pressable, StyleSheet } from "react-native"
-import { useHistory, useParams } from "react-router-native"
+import { useHistory } from "react-router-native"
 import { Formik, useField } from "formik"
 import * as yup from "yup"
 import Text from "./Text"
@@ -79,7 +79,7 @@ const ReviewForm = ({ handleSubmit }) => {
       <FormikTextInput name="ownerName" placeholder="Repository owner name" />
       <FormikTextInput name="repositoryName" placeholder="Repository name" />
       <FormikTextInput name="rating" placeholder="Rating between 0 and 100" />
-      <FormikTextInput name="text" placeholder="Review" />
+      <FormikTextInput name="text" placeholder="Review" multiline />
       <Pressable onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>Create a review</Text>
       </Pressable>
