@@ -6,6 +6,7 @@ import AppBar from "./AppBar"
 import SignIn from "./SignIn"
 import RepositoryPage from "./RepositoryPage"
 import ReviewPage from "./ReviewPage"
+import SignUp from "./SignUp"
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,9 @@ const Main = () => {
         </Route>
         <Route path="/signin">
           <SignIn />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
         </Route>
         <Redirect to="/repositories" />
       </Switch>
